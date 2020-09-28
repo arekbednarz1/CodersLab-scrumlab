@@ -5,8 +5,7 @@ public class DayName {
     private String name;
 
     public DayName(){}
-    public DayName(int id, String name) {
-        this.id = id;
+    public DayName(String name) {
         this.name = name;
     }
 
