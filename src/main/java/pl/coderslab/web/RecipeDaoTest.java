@@ -24,10 +24,10 @@ public class RecipeDaoTest extends HttpServlet {
 //        RecipeDao recipeDao = new RecipeDao();
 //        recipeDao.deleteRecipe(10);
 
-        RecipeDao recipeDao = new RecipeDao();
-        Recipe t2 = recipeDao.readRecipe(11);
-        t2.setName("barszcz");
-        recipeDao.updateRecipe(t2);
+//        RecipeDao recipeDao = new RecipeDao();
+//        Recipe t2 = recipeDao.readRecipe(11);
+//        t2.setName("barszcz");
+//        recipeDao.updateRecipe(t2);
 
 
 

@@ -23,6 +23,7 @@ public class DayNameDao {
             DayName dayName = new DayName();
             dayName.setId(resultSet.getInt("id"));
             dayName.setName(resultSet.getString("name"));
+            dayName.setDisplay_order(resultSet.getInt("display_order"));
             dayNamesList.add(dayName);
         }
     }catch (SQLException e){
