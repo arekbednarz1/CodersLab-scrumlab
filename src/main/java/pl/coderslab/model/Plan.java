@@ -1,20 +1,33 @@
 package pl.coderslab.model;
 
+
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+
 public class Plan {
 
     private int id;
     private String name;
     private String description;
-    private String created;
-    private String adminId;
+    private Date created = Date.valueOf(LocalDate.now());
+    private int adminId;
 
     public Plan() {
     }
 
-    public Plan(String name, String description, String created) {
+    public Plan(String name, String description, Date created) {
         this.name = name;
         this.description = description;
         this.created = created;
+    }
+
+    @Override
+    public String toString() {
+        return "Plan [id=" + id + ", name=" + name + ", description=" + description + ", created=" + created + " " + adminId+"]";
     }
 
     public int getId() {
@@ -41,19 +54,19 @@ public class Plan {
         this.description = description;
     }
 
-    public String getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public String getAdminId() {
+    public int getAdminId() {
         return adminId;
     }
 
-    public void setAdminId(String adminId) {
+    public void setAdminId(int adminId) {
         this.adminId = adminId;
     }
 }

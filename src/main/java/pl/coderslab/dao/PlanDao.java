@@ -5,15 +5,17 @@ import pl.coderslab.model.Plan;
 import pl.coderslab.utils.DbUtil;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlanDao {
     //zapytania
-    private static final String CREATE_PLAN_QUERY = "INSERT INTO plan(name, description, created) VALUES (?,?,?)";
+    private static final String CREATE_PLAN_QUERY = "INSERT INTO plan(name , description, created, admin_id) VALUES (?,?,?,?)";
     private static final String READ_PLAN_QUERY = "SELECT * FROM plan WHERE id=?";
     private static final String READ_ALL_PLANS_QUERY = "SELECT * FROM plan";
-    private static final String UPDATE_PLAN_QUERY = "UPDATE plan SET name=?, description=?, created=? WHERE id=?";
+    private static final String UPDATE_PLAN_QUERY = "UPDATE plan SET name=?, description=? WHERE id=?";
     private static final String DELETE_PLAN_QUERY = "DELETE FROM plan WHERE id=?";
 
 
@@ -23,10 +25,12 @@ public class PlanDao {
 
     public Plan createPlan(Plan plan) {
         try (Connection conn = DbUtil.getConnection();
-             PreparedStatement statement = conn.prepareStatement(CREATE_PLAN_QUERY, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement statement = conn.prepareStatement(CREATE_PLAN_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, plan.getName());
             statement.setString(2, plan.getDescription());
-            statement.setString(3, plan.getCreated());
+            statement.setDate(3,plan.getCreated());
+            statement.setInt(4,plan.getAdminId());
+
             int result = statement.executeUpdate();
 
             if (result != 1) {
@@ -60,7 +64,7 @@ public class PlanDao {
                     plan.setId(resultSet.getInt("id"));
                     plan.setName(resultSet.getString("name"));
                     plan.setDescription(resultSet.getString("description"));
-                    plan.setCreated(resultSet.getString("created"));
+                    plan.setCreated(resultSet.getDate("created"));
                 }
             }
         } catch (SQLException e) {
@@ -83,7 +87,7 @@ public class PlanDao {
                 planToAdd.setId(resultSet.getInt("id"));
                 planToAdd.setName(resultSet.getString("name"));
                 planToAdd.setDescription(resultSet.getString("description"));
-                planToAdd.setCreated(resultSet.getString("created"));
+                planToAdd.setCreated(resultSet.getDate("created"));
                 planList.add(planToAdd);
             }
         } catch (SQLException e) {
@@ -101,7 +105,6 @@ public class PlanDao {
             statement.setInt(4, plan.getId());
             statement.setString(1, plan.getName());
             statement.setString(2, plan.getDescription());
-            statement.setString(3, plan.getCreated());
 
             statement.executeUpdate();
         } catch (SQLException e) {

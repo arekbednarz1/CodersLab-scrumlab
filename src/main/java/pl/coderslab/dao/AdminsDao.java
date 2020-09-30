@@ -58,8 +58,8 @@ public Admins readAdmin(int adminId){
         try(ResultSet resultSet = statement.executeQuery()){
         while (resultSet.next()){
             admins.setId(resultSet.getInt("id"));
-            admins.setFirstName(resultSet.getString("firstName"));
-            admins.setLastName(resultSet.getString("lastName"));
+            admins.setFirstName(resultSet.getString("first_name"));
+            admins.setLastName(resultSet.getString("last_name"));
             admins.setEmail(resultSet.getString("email"));
             admins.setPassword(resultSet.getString("password"));
         }
@@ -100,8 +100,8 @@ public List<Admins> readAllAdmins(){
         while (resultSet.next()){
             Admins admins = new Admins();
             admins.setId(resultSet.getInt("id"));
-            admins.setFirstName(resultSet.getString("firstName"));
-            admins.setLastName(resultSet.getString("lastName"));
+            admins.setFirstName(resultSet.getString("first_name"));
+            admins.setLastName(resultSet.getString("last_name"));
             admins.setEmail(resultSet.getString("email"));
             admins.setPassword(resultSet.getString("password"));
             adminsList.add(admins);
