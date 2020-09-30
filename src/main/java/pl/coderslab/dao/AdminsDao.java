@@ -75,12 +75,12 @@ public Admins readAdmin(int adminId){
         Admins admins = new Admins();
         try (Connection conn = DbUtil.getConnection();
              PreparedStatement statement = conn.prepareStatement(READ_ADMIN_MAIL_QUERY)) {
-            statement.setString(4, adminEmail);
+            statement.setString(1, adminEmail);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     admins.setId(resultSet.getInt("id"));
-                    admins.setFirstName(resultSet.getString("firstName"));
-                    admins.setLastName(resultSet.getString("lastName"));
+                    admins.setFirstName(resultSet.getString("first_name"));
+                    admins.setLastName(resultSet.getString("last_name"));
                     admins.setEmail(resultSet.getString("email"));
                     admins.setPassword(resultSet.getString("password"));
                 }

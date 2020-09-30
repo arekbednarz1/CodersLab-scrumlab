@@ -35,10 +35,11 @@ public class LoginServlet extends HttpServlet {
             }
 
 
+        }else {
+            String wrw = "Wpisz poprawne dane";
+            request.setAttribute("wrong", wrw);
+            getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         }
-        String wrw = "Wpisz poprawne dane";
-        request.setAttribute("wrong", wrw);
-        getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
 
