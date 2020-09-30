@@ -152,10 +152,11 @@ import java.util.List;
         try (Connection conn = DbUtil.getConnection();
              PreparedStatement statement = conn.prepareStatement(COUNT_RECIPES_QUERY)) {
             statement.setInt(1, adminID);
-            ResultSet rs = statement.executeQuery();
-            if(rs.next()) {
-                int numOfRecipes = rs.getInt(1);
-                return numOfRecipes;
+            try(ResultSet rs = statement.executeQuery()) {
+                if(rs.next()) {
+                    int numOfRecipes = rs.getInt(1);
+                    return numOfRecipes;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

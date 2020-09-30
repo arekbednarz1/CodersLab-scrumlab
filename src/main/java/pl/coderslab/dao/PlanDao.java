@@ -138,10 +138,11 @@ public class PlanDao {
         try (Connection conn = DbUtil.getConnection();
              PreparedStatement statement = conn.prepareStatement(COUNT_PLANS_QUERY)) {
             statement.setInt(1, adminID);
-            ResultSet rs = statement.executeQuery();
-            if(rs.next()) {
-                int numOfPlans = rs.getInt(1);
-                return numOfPlans;
+            try (ResultSet rs = statement.executeQuery()) {
+                if(rs.next()) {
+                    int numOfPlans = rs.getInt(1);
+                    return numOfPlans;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
