@@ -139,7 +139,7 @@ public class PlanDao {
              PreparedStatement statement = conn.prepareStatement(COUNT_PLANS_QUERY)) {
             statement.setInt(1, adminID);
             try (ResultSet rs = statement.executeQuery()) {
-                if(rs.next()) {
+                if (rs.next()) {
                     int numOfPlans = rs.getInt(1);
                     return numOfPlans;
                 }
@@ -148,5 +148,50 @@ public class PlanDao {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    String GET_LAST_PLAN_QUERY =
+    "SELECT day_name.name as day_name, meal_name,  recipe.name as recipe_name, recipe.description as recipe_description"+
+    "FROM `recipe_plan`"+
+    "JOIN day_name on day_name.id=day_name_id"+
+    "JOIN recipe on recipe.id=recipe_id WHERE"+
+    "recipe_plan.plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?)"+
+    "ORDER by day_name.display_order, recipe_plan.display_order";
+
+    /*
+     * Get last plan made by specific user
+     */
+
+    public Plan getLastPlan(int adminID) {
+        Plan plan = new Plan();
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(GET_LAST_PLAN_QUERY)) {
+            statement.setInt(1, adminID);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()) {
+                plan.setId(rs.getInt("id"));
+                plan.setName(rs.getString("name"));
+                plan.setDescription(rs.getString("description"));
+                plan.setCreated(rs.getDate("created"));
+                plan.setAdminId(rs.getInt("admin_id"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return plan;
+
+        List<Plan> planList = new ArrayList<>();
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(READ_ALL_PLANS_QUERY);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                Plan planToAdd = new Plan();
+                planToAdd.setId(resultSet.getInt("id"));
+                planToAdd.setName(resultSet.getString("name"));
+                planToAdd.setDescription(resultSet.getString("description"));
+                planToAdd.setCreated(resultSet.getDate("created"));
+                planList.add(planToAdd);
+            }
+        }
     }
 }
