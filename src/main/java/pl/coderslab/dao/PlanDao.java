@@ -17,7 +17,7 @@ public class PlanDao {
     private static final String READ_ALL_PLANS_QUERY = "SELECT * FROM plan";
     private static final String UPDATE_PLAN_QUERY = "UPDATE plan SET name=?, description=? WHERE id=?";
     private static final String DELETE_PLAN_QUERY = "DELETE FROM plan WHERE id=?";
-
+    private static final String COUNT_PLANS_QUERY = "SELECT COUNT(*) FROM plan WHERE admin_id=?";
 
     /*
      * Create plan
@@ -128,5 +128,24 @@ public class PlanDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /*
+     * Count plans made by specific user
+     */
+
+    public int countPlans(int adminID) {
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(COUNT_PLANS_QUERY)) {
+            statement.setInt(1, adminID);
+            ResultSet rs = statement.executeQuery();
+            if(rs.next()) {
+                int numOfPlans = rs.getInt(1);
+                return numOfPlans;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }
