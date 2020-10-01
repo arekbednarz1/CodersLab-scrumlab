@@ -70,7 +70,7 @@
                             <td class="col-2">${day[1]}</td>
                             <td class="col-8">${day[2]}</td>
                             <td class="col-2">
-                                <button type="button" class="btn btn-primary rounded-0">Szczegóły</button>
+                                <a href="<c:url value="app/recipe/details?id=${day[3]}" /> " class="btn btn-primary rounded-0">Szczegóły</a>
                             </td>
                         </tr>
                 <%-- close table if next day is different than previous --%>

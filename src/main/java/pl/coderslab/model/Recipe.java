@@ -1,8 +1,8 @@
 package pl.coderslab.model;
 
 public class Recipe {
-    private int id;
-    private String name;
+    public int id;
+    public String name;
     private String ingredients;
     private String created;
     private String description;
