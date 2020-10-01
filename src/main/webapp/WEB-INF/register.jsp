@@ -27,8 +27,9 @@
                         <input type="password" class="form-control" id="repassword" name="password" placeholder="powtórz hasło">
                     </div>
                     <button class="btn btn-color rounded-0" type="submit">Zarejestruj</button>
-                    <p>${wrong}</p>
-                    <p>${all}</p>
+                    <c:if test="${not empty wrong}"><p>${wrong}</p></c:if>
+                    <c:if test="${not empty all}"><p>${all}</p></c:if>
+                    <c:if test="${not empty userExists}"><p>${userExists}</p></c:if>
 
                 </form>
 
