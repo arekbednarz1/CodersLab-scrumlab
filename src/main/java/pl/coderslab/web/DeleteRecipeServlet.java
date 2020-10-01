@@ -11,20 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "RecipeServlet", urlPatterns = "/app/recipe/list/")
-public class RecipeServlet extends HttpServlet {
+@WebServlet(name = "DeleteRecipeServlet", urlPatterns = {"/app/recipe/delete"})
+public class DeleteRecipeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        response.setCharacterEncoding("UTF-8");
-        RecipeDao recipeDao = new RecipeDao();
         HttpSession session = request.getSession();
         Admins admin = (Admins) session.getAttribute("admin");
         request.setAttribute("username", admin.getFirstName());
-        request.setAttribute("recipes",recipeDao.readAllAdminRecipes(admin.getId()));
-getServletContext().getRequestDispatcher("/WEB-INF/AdminRecipe.jsp").forward(request, response);
+        RecipeDao recipeDao = new RecipeDao();
+        String idValue = request.getParameter("id");
+        int id = Integer.parseInt(idValue);
+        recipeDao.deleteRecipe(id);
+       getServletContext().getRequestDispatcher("/app/recipe/list/").forward(request,response);
+
     }
 }
