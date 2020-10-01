@@ -1,7 +1,6 @@
 package pl.coderslab.web;
 
-import pl.coderslab.dao.DayNameDao;
-import pl.coderslab.model.DayName;
+import pl.coderslab.dao.RecipeDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,17 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(name = "DayNameTest", urlPatterns = {"/daynameTest"})
-public class DayNameTest extends HttpServlet {
+@WebServlet(name = "RecepeBeforeDeleteServlet", urlPatterns = {"/app/recipe/beforeDelete"})
+public class RecepeBeforeDeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DayNameDao dayNameDao = new DayNameDao();
-        List<DayName> days = dayNameDao.readAllDays();
-        System.out.println(days);
+        RecipeDao recipeDao = new RecipeDao();
+        String idValue = request.getParameter("id");
+        int id = Integer.parseInt(idValue);
+        request.setAttribute("showDetails", recipeDao.readRecipe(id));
+getServletContext().getRequestDispatcher("/WEB-INF/deleteRecipe.jsp").forward(request,response);
     }
 }

@@ -7,7 +7,7 @@ public class Recipe {
     private String created;
     private String description;
     private String updated;
-    private String preparation_time;
+    private int preparation_time;
     private String preparation;
     private String admin_id;
 
@@ -15,7 +15,7 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(String name, String ingredients, String created, String description, String updated, String preparation_time, String preparation, String admin_id) {
+    public Recipe(String name, String ingredients, String created, String description, String updated, int preparation_time, String preparation, String admin_id) {
         this.name = name;
         this.ingredients = ingredients;
         this.created = created;
@@ -74,11 +74,11 @@ public class Recipe {
         this.updated = updated;
     }
 
-    public String getPreparation_time() {
+    public int getPreparation_time() {
         return preparation_time;
     }
 
-    public void setPreparation_time(String preparation_time) {
+    public void setPreparation_time(int preparation_time) {
         this.preparation_time = preparation_time;
     }
 

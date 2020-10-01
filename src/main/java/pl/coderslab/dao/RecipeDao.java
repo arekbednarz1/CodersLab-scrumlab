@@ -16,7 +16,7 @@ import java.util.List;
     private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET name=?, ingredients=?, description=?, created=?, updated=?, preparation_time=?, preparation=? WHERE id=?";
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM recipe WHERE id=?";
     private static final String COUNT_RECIPES_QUERY = "SELECT COUNT(*) FROM recipe WHERE admin_id=?";
-
+    private static final String READ_ALL_RECIPES_SORTED_QUERY = "SELECT * FROM recipe WHERE admin_id=? ORDER BY created desc, updated desc";
     /*
      * Create recipe
      */
@@ -29,7 +29,7 @@ import java.util.List;
             statement.setString(3, recipe.getDescription());
             statement.setString(4, recipe.getCreated());
             statement.setString(5, recipe.getUpdated());
-            statement.setString(6, recipe.getPreparation_time());
+            statement.setInt(6, recipe.getPreparation_time());
             statement.setString(7, recipe.getPreparation());
             statement.setString(8, recipe.getAdmin_id());
             int result = statement.executeUpdate();
@@ -68,7 +68,7 @@ import java.util.List;
                     recipe.setDescription(resultSet.getString("description"));
                     recipe.setCreated(resultSet.getString("created"));
                     recipe.setUpdated(resultSet.getString("updated"));
-                    recipe.setPreparation_time(resultSet.getString("preparation_time"));
+                    recipe.setPreparation_time(resultSet.getInt("preparation_time"));
                     recipe.setPreparation(resultSet.getString("preparation"));
                 }
             }
@@ -95,7 +95,7 @@ import java.util.List;
                 recipeToAdd.setDescription(resultSet.getString("description"));
                 recipeToAdd.setCreated(resultSet.getString("created"));
                 recipeToAdd.setUpdated(resultSet.getString("updated"));
-                recipeToAdd.setPreparation_time(resultSet.getString("preparation_time"));
+                recipeToAdd.setPreparation_time(resultSet.getInt("preparation_time"));
                 recipeToAdd.setPreparation(resultSet.getString("preparation"));
                recipesList.add(recipeToAdd);
             }
@@ -117,7 +117,7 @@ import java.util.List;
             statement.setString(3, recipe.getDescription());
             statement.setString(4, recipe.getCreated());
             statement.setString(5, recipe.getUpdated());
-            statement.setString(6, recipe.getPreparation_time());
+            statement.setInt(6, recipe.getPreparation_time());
             statement.setString(7, recipe.getPreparation());
 
             statement.executeUpdate();
@@ -163,6 +163,30 @@ import java.util.List;
         }
         return -1;
     }
+        public List<Recipe> readAllAdminRecipes(int adminId) {
+            List<Recipe> recipesList = new ArrayList<>();
+            try (Connection conn = DbUtil.getConnection();
+                 PreparedStatement statement = conn.prepareStatement(READ_ALL_RECIPES_SORTED_QUERY);){
+                 statement.setInt(1, adminId);
+                 try(ResultSet resultSet = statement.executeQuery()) {
+                     while (resultSet.next()) {
+                         Recipe recipeToAdd = new Recipe();
+                         recipeToAdd.setId(resultSet.getInt("id"));
+                         recipeToAdd.setName(resultSet.getString("name"));
+                         recipeToAdd.setIngredients(resultSet.getString("ingredients"));
+                         recipeToAdd.setDescription(resultSet.getString("description"));
+                         recipeToAdd.setCreated(resultSet.getString("created"));
+                         recipeToAdd.setUpdated(resultSet.getString("updated"));
+                         recipeToAdd.setPreparation_time(resultSet.getInt("preparation_time"));
+                         recipeToAdd.setPreparation(resultSet.getString("preparation"));
+                         recipesList.add(recipeToAdd);
+                     }
+                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return recipesList;
+        }
 }
 
 
