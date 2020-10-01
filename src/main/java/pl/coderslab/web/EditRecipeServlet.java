@@ -15,6 +15,9 @@ import java.time.LocalDateTime;
 @WebServlet(name = "EditRecipeServlet", urlPatterns = {"/app/recipe/edit"})
 public class EditRecipeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String  ingredients = request.getParameter("ingredients");
@@ -55,13 +58,16 @@ public class EditRecipeServlet extends HttpServlet {
         recipe.setUpdated(String.valueOf(LocalDateTime.now()));
 
         recipeDao.updateRecipe(recipe);
-        getServletContext().getRequestDispatcher("/app/recipe/list").forward(request,response);
+        response.sendRedirect(request.getContextPath() + "/app/recipe/list/");
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         RecipeDao recipeDao = new RecipeDao();
-        String idValue = request.getParameter("id");
-        int id = Integer.parseInt(idValue);
+        int id = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("showDetails", recipeDao.readRecipe(id));
         getServletContext().getRequestDispatcher("/WEB-INF/editRecipe.jsp").forward(request,response);
     }

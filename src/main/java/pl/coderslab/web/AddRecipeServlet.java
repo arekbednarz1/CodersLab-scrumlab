@@ -19,15 +19,16 @@ public class AddRecipeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
         HttpSession session = request.getSession();
 
         Admins admin = (Admins) session.getAttribute("admin");
-    String name = request.getParameter("name");
-    String description = request.getParameter("description");
-    String prepTime = request.getParameter("prepTime");
-    String preparation = request.getParameter("prep");
-    String ingredients = request.getParameter("ingredients");
+        String name = request.getParameter("name").trim();
+        String description = request.getParameter("description").trim();
+        String prepTime = request.getParameter("prepTime").trim();
+        String preparation = request.getParameter("prep").trim();
+        String ingredients = request.getParameter("ingredients").trim();
         Recipe recipe = new Recipe();
         recipe.setName(name);
         recipe.setDescription(description);
@@ -45,6 +46,7 @@ public class AddRecipeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-    getServletContext().getRequestDispatcher("/WEB-INF/addRecipe.jsp").forward(request,response);
+        request.setCharacterEncoding("UTF-8");
+        getServletContext().getRequestDispatcher("/WEB-INF/addRecipe.jsp").forward(request, response);
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
     private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET name=?, ingredients=?, description=?, created=?, updated=?, preparation_time=?, preparation=? WHERE id=?";
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM recipe WHERE id=?";
     private static final String COUNT_RECIPES_QUERY = "SELECT COUNT(*) FROM recipe WHERE admin_id=?";
-    private static final String READ_ALL_ADMIN_RECIPES_QUERY = "SELECT * FROM recipe WHERE admin_id=? ORDER BY created desc, updated desc";
+    private static final String READ_ALL_RECIPES_SORTED_QUERY = "SELECT * FROM recipe WHERE admin_id=? ORDER BY created desc, updated desc";
     /*
      * Create recipe
      */
@@ -166,7 +166,7 @@ import java.util.List;
         public List<Recipe> readAllAdminRecipes(int adminId) {
             List<Recipe> recipesList = new ArrayList<>();
             try (Connection conn = DbUtil.getConnection();
-                 PreparedStatement statement = conn.prepareStatement(READ_ALL_ADMIN_RECIPES_QUERY);){
+                 PreparedStatement statement = conn.prepareStatement(READ_ALL_RECIPES_SORTED_QUERY);){
                  statement.setInt(1, adminId);
                  try(ResultSet resultSet = statement.executeQuery()) {
                      while (resultSet.next()) {

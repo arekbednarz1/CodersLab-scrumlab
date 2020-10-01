@@ -41,10 +41,11 @@
                     <p>${showDetails.preparation}</p>
                 </div>
                 <div class="col-2"></div>
-                <ul class="col-5 p-4 list-unstyled">
+                <ul class="col-5 p-4 ">
                     <c:forEach var="ingredients" items="${showDetails.ingredients}">
 
-                        <p>${ingredients}</p>
+                        <li>${ingredients}</li>
+
                     </c:forEach>
                 </ul>
             </div>
