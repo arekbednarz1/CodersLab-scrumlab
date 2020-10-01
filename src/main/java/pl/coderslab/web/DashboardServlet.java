@@ -50,6 +50,9 @@ public class DashboardServlet extends HttpServlet {
         List<String[]> lastDetailedPlan = planDao.getLastPlanDetailed(admin.getId());
         request.setAttribute("lastDetailedPlan", lastDetailedPlan);
 
+        String recipePlanCreated = request.getParameter("recipePlanCreated");
+        if(recipePlanCreated != null) request.setAttribute("recipePlanCreated", "Plan przepisów został zaktualizowany!");
+
         getServletContext().getRequestDispatcher("/WEB-INF/dashboard.jsp").forward(request, response);
     }
 }
