@@ -1,6 +1,7 @@
 package pl.coderslab.web;
 
 import pl.coderslab.dao.PlanDao;
+import pl.coderslab.model.Plan;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,14 +30,33 @@ public class PlanTest extends HttpServlet {
 //        List<Plan> planList = planDao.readAllPlans();
 //        System.out.println(planList);
 
-        /* test liczenia planów dodanych przez podanego użytkonika */
-        PlanDao countPlanDao = new PlanDao();
-        int numOfPlans = countPlanDao.countPlans(1);
-        response.getWriter().append("Number of plans for admin_id=1: ")
-                .append(String.valueOf(numOfPlans));
-
-        numOfPlans = countPlanDao.countPlans(2443);
-        response.getWriter().append("\nNumber of plans for admin_id=2443: ")
-                .append(String.valueOf(numOfPlans));
+//        /* test liczenia planów dodanych przez podanego użytkonika */
+//        PlanDao countPlanDao = new PlanDao();
+//        int numOfPlans = countPlanDao.countPlans(1);
+//        response.getWriter().append("Number of plans for admin_id=1: ")
+//                .append(String.valueOf(numOfPlans));
+//
+//        numOfPlans = countPlanDao.countPlans(2443);
+//        response.getWriter().append("\nNumber of plans for admin_id=2443: ")
+//                .append(String.valueOf(numOfPlans));
+//
+//        // test pobrania ostatniego planu
+//        PlanDao lastPlanDao = new PlanDao();
+//        Plan lastPlan = new Plan();
+//        lastPlan = lastPlanDao.getLastPlan(1);
+//        response.getWriter().append("\n\nLast plan for admin_id=1: ")
+//                .append("\nID: ").append(String.valueOf(lastPlan.getId()))
+//                .append("\nName: ").append(String.valueOf(lastPlan.getId()))
+//                .append("\nDescription: ").append(lastPlan.getDescription())
+//                .append("\nCreated: ").append(String.valueOf(lastPlan.getCreated()))
+//                .append("\nAdminID: ").append(String.valueOf(lastPlan.getId()));
+//
+//        lastPlan = lastPlanDao.getLastPlan(7657657);
+//        response.getWriter().append("Last plan for admin_id=7657657: ")
+//                .append("\nID: ").append(String.valueOf(lastPlan.getId()))
+//                .append("\nName: ").append(String.valueOf(lastPlan.getId()))
+//                .append("\nDescription: ").append(lastPlan.getDescription())
+//                .append("\nCreated: ").append(String.valueOf(lastPlan.getCreated()))
+//                .append("\nAdminID: ").append(String.valueOf(lastPlan.getId()));
     }
 }
