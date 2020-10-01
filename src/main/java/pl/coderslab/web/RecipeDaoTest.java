@@ -1,5 +1,6 @@
 package pl.coderslab.web;
 
+import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipeDao;
 import pl.coderslab.model.Recipe;
 
@@ -30,6 +31,15 @@ public class RecipeDaoTest extends HttpServlet {
 //        recipeDao.updateRecipe(t2);
 
 
+        /* test liczenia przepisów dodanych przez podanego użytkonika */
+        RecipeDao countRecipeDao = new RecipeDao();
+        int numOfRecipes = countRecipeDao.countRecipes(1);
+        response.getWriter().append("Number of recipes for admin_id=1: ")
+                .append(String.valueOf(numOfRecipes));
+
+        numOfRecipes = countRecipeDao.countRecipes(2443);
+        response.getWriter().append("\nNumber of recipes for admin_id=2443: ")
+                .append(String.valueOf(numOfRecipes));
 
 
 

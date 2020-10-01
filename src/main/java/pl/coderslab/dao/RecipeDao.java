@@ -15,7 +15,7 @@ import java.util.List;
     private static final String READ_ALL_RECIPES_QUERY = "SELECT * FROM recipe";
     private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET name=?, ingredients=?, description=?, created=?, updated=?, preparation_time=?, preparation=? WHERE id=?";
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM recipe WHERE id=?";
-
+    private static final String COUNT_RECIPES_QUERY = "SELECT COUNT(*) FROM recipe WHERE admin_id=?";
 
     /*
      * Create recipe
@@ -142,6 +142,26 @@ import java.util.List;
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /*
+     * Count recipes made by specific user
+     */
+
+    public int countRecipes(int adminID) {
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(COUNT_RECIPES_QUERY)) {
+            statement.setInt(1, adminID);
+            try(ResultSet rs = statement.executeQuery()) {
+                if(rs.next()) {
+                    int numOfRecipes = rs.getInt(1);
+                    return numOfRecipes;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }
 
