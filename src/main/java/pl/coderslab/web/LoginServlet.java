@@ -29,7 +29,6 @@ public class LoginServlet extends HttpServlet {
                 if (BCrypt.checkpw(password, admins.getPassword())) {
                     HttpSession httpSession = request.getSession();
                     httpSession.setAttribute("admin", admins);
-//                        response.sendRedirect("myRecipes");
                     response.sendRedirect("/");
                 }
             }
@@ -38,7 +37,7 @@ public class LoginServlet extends HttpServlet {
         }else {
             String wrw = "Wpisz poprawne dane";
             request.setAttribute("wrong", wrw);
-            getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
     }
 
@@ -46,6 +45,6 @@ public class LoginServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 }

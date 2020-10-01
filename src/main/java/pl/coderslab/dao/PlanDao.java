@@ -10,13 +10,14 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class lanDao {
+public class PlanDao {
     //zapytania
     private static final String CREATE_PLAN_QUERY = "INSERT INTO plan(name , description, created, admin_id) VALUES (?,?,?,?)";
     private static final String READ_PLAN_QUERY = "SELECT * FROM plan WHERE id=?";
     private static final String READ_ALL_PLANS_QUERY = "SELECT * FROM plan";
     private static final String UPDATE_PLAN_QUERY = "UPDATE plan SET name=?, description=? WHERE id=?";
     private static final String DELETE_PLAN_QUERY = "DELETE FROM plan WHERE id=?";
+    private static final String READ_ALL_PLAN_ADMIN_QUERY = "SELECT * FROM plan WHERE admin_id=?";
 
 
     /*
@@ -28,7 +29,7 @@ public class lanDao {
              PreparedStatement statement = conn.prepareStatement(CREATE_PLAN_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, plan.getName());
             statement.setString(2, plan.getDescription());
-            statement.setDate(3,plan.getCreated());
+            statement.setString(3,plan.getCreated());
             statement.setInt(4,plan.getAdminId());
 
             int result = statement.executeUpdate();
@@ -64,13 +65,34 @@ public class lanDao {
                     plan.setId(resultSet.getInt("id"));
                     plan.setName(resultSet.getString("name"));
                     plan.setDescription(resultSet.getString("description"));
-                    plan.setCreated(resultSet.getDate("created"));
+                    plan.setCreated(resultSet.getString("created"));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return plan;
+    }
+
+    public List<Plan> readPlanAdmin(int adminId) {
+        List<Plan>list =new ArrayList<>();
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(READ_ALL_PLAN_ADMIN_QUERY)) {
+            statement.setInt(1, adminId);
+            ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    Plan plan = new Plan();
+                    plan.setId(resultSet.getInt("id"));
+                    plan.setName(resultSet.getString("name"));
+                    plan.setDescription(resultSet.getString("description"));
+                    plan.setCreated(resultSet.getString("created"));
+                    list.add(plan);
+                }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     /*
@@ -87,7 +109,7 @@ public class lanDao {
                 planToAdd.setId(resultSet.getInt("id"));
                 planToAdd.setName(resultSet.getString("name"));
                 planToAdd.setDescription(resultSet.getString("description"));
-                planToAdd.setCreated(resultSet.getDate("created"));
+                planToAdd.setCreated(resultSet.getString("created"));
                 planList.add(planToAdd);
             }
         } catch (SQLException e) {

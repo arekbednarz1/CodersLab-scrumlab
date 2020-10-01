@@ -41,13 +41,13 @@ public class RegistrationServlet extends HttpServlet {
                 String wr = "Uzupełnij wszystkie pola";
                 request.setAttribute("all", wr);
             }
-            getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
 
 
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/register.jsp").forward(request,response);
+        getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request,response);
     }
 }

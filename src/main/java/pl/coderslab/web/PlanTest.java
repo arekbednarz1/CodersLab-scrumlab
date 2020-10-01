@@ -1,6 +1,7 @@
 package pl.coderslab.web;
 
 import pl.coderslab.dao.PlanDao;
+import pl.coderslab.model.Plan;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,16 +18,12 @@ public class PlanTest extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PlanDao planDao = new PlanDao();
-//        Plan plan = new Plan();
-//        plan.setName("super plan");
-//        plan.setDescription("super fajna dieta bogata w mięso");
-//        planDao.createPlan(plan);
-//        planDao.deletePlan(7);
-//        planDao.deletePlan(8);
-//        planDao.deletePlan(9);
-//        planDao.deletePlan(10);
-//        planDao.deletePlan(11);
-//        List<Plan> planList = planDao.readAllPlans();
-//        System.out.println(planList);
+        Plan plan = new Plan();
+        plan.setName("super plan");
+        plan.setDescription("Pojęcie kuchnia wegetariańska określa pożywienie, które ani nie zawiera mięsa, ani nie zostało przygotowane na bazie pochodzącej z mięsa (np. na rosole drobiowym). Laktoowowegetarianie (najczęściej spotykany typ wegetarian w zachodnim świecie) spożywają nabiał, laktowegetarianie wykluczają jaja, ale nie inne produkty nabiałowe.");
+        plan.setAdminId(4);
+        planDao.createPlan(plan);
+
+
     }
 }

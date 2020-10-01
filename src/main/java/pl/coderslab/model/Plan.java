@@ -13,13 +13,13 @@ public class Plan {
     private int id;
     private String name;
     private String description;
-    private Date created = Date.valueOf(LocalDate.now());
+    private String created;
     private int adminId;
 
     public Plan() {
     }
 
-    public Plan(String name, String description, Date created) {
+    public Plan(String name, String description, String created) {
         this.name = name;
         this.description = description;
         this.created = created;
@@ -54,11 +54,11 @@ public class Plan {
         this.description = description;
     }
 
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 
