@@ -1,5 +1,7 @@
 package pl.coderslab.filters;
 
+import pl.coderslab.model.Admins;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +19,8 @@ public class AuthFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
 
         HttpSession session = request.getSession();
-        if(session.getAttribute("username") == null) {
+        Admins admin = (Admins) session.getAttribute("admin");
+        if(admin == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }

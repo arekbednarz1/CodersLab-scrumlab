@@ -24,12 +24,12 @@ public class DashboardServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //TEST
-        AdminsDao adminsDao = new AdminsDao();
-        Admins admin = adminsDao.readAdmin(1);
+//        AdminsDao adminsDao = new AdminsDao();
+//        Admins admin = adminsDao.readAdmin(1);
 
         HttpSession session = request.getSession();
 
-        //Admins admin = (Admins) session.getAttribute("admin");
+        Admins admin = (Admins) session.getAttribute("admin");
         request.setAttribute("username", admin.getFirstName());
 
         // get number of plans user created and display it on dashbord
