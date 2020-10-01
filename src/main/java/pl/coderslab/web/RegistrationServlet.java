@@ -42,8 +42,6 @@ public class RegistrationServlet extends HttpServlet {
                 request.setAttribute("all", wr);
             }
             getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
-
-
         }
     }
 
