@@ -15,12 +15,13 @@ public class PlanDao {
     private static final String CREATE_PLAN_QUERY = "INSERT INTO plan(name , description, created, admin_id) VALUES (?,?,?,?)";
     private static final String READ_PLAN_QUERY = "SELECT * FROM plan WHERE id=?";
     private static final String READ_ALL_PLANS_QUERY = "SELECT * FROM plan";
+    private static final String READ_ALL_ADMIN_PLANS_QUERY = "SELECT * FROM plan WHERE admin_id=?";
     private static final String UPDATE_PLAN_QUERY = "UPDATE plan SET name=?, description=? WHERE id=?";
     private static final String DELETE_PLAN_QUERY = "DELETE FROM plan WHERE id=?";
     private static final String COUNT_PLANS_QUERY = "SELECT COUNT(*) FROM plan WHERE admin_id=?";
     private static final String GET_LAST_PLAN_QUERY = "SELECT * FROM plan WHERE admin_id=? ORDER BY created DESC LIMIT 1";
     private static final String GET_DETAILED_LAST_PLAN_QUERY =
-        "SELECT day_name.name as day_name, meal_name,  recipe.name as recipe_name, recipe.description as recipe_description "+
+        "SELECT day_name.name as day_name, meal_name,  recipe.name as recipe_name, recipe_id "+
         "FROM `recipe_plan` "+
         "JOIN day_name on day_name.id=day_name_id "+
         "JOIN recipe on recipe.id=recipe_id WHERE "+
@@ -97,6 +98,32 @@ public class PlanDao {
                 planToAdd.setDescription(resultSet.getString("description"));
                 planToAdd.setCreated(resultSet.getDate("created"));
                 planList.add(planToAdd);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return planList;
+    }
+
+
+    /*
+     * Read all plans
+     */
+
+    public List<Plan> readAllAdminPlans(int adminId) {
+        List<Plan> planList = new ArrayList<>();
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(READ_ALL_ADMIN_PLANS_QUERY)) {
+            statement.setInt(1, adminId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Plan planToAdd = new Plan();
+                    planToAdd.setId(resultSet.getInt("id"));
+                    planToAdd.setName(resultSet.getString("name"));
+                    planToAdd.setDescription(resultSet.getString("description"));
+                    planToAdd.setCreated(resultSet.getDate("created"));
+                    planList.add(planToAdd);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -200,7 +227,7 @@ public class PlanDao {
                     planRow[0] = rs.getString("day_name");
                     planRow[1] = rs.getString("meal_name");
                     planRow[2] = rs.getString("recipe_name");
-                    planRow[3] = rs.getString("recipe_description");
+                    planRow[3] = rs.getString("recipe_id");
                     lastDetailedPlan.add(planRow);
                 }
             }
