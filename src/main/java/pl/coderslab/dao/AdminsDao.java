@@ -19,6 +19,7 @@ public class AdminsDao {
     private static final String READ_ALL_ADMINS_QUERY = "SELECT * FROM admins";
     private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name=?, last_name=?, email=?, password=? WHERE id=?";
     private static final String DELETE_ADMIN_QUERY = "DELETE FROM admins WHERE id=?";
+    private static final String READ_ADMIN_MAIL_QUERY = "SELECT * FROM admins WHERE email=?";
 
     public String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
@@ -69,6 +70,27 @@ public Admins readAdmin(int adminId){
     }
     return null;
 }
+
+    public Admins readAdminEmail(String adminEmail) {
+        Admins admins = new Admins();
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(READ_ADMIN_MAIL_QUERY)) {
+            statement.setString(4, adminEmail);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    admins.setId(resultSet.getInt("id"));
+                    admins.setFirstName(resultSet.getString("firstName"));
+                    admins.setLastName(resultSet.getString("lastName"));
+                    admins.setEmail(resultSet.getString("email"));
+                    admins.setPassword(resultSet.getString("password"));
+                }
+                return admins;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 public List<Admins> readAllAdmins(){
     List<Admins> adminsList = new ArrayList<>();
