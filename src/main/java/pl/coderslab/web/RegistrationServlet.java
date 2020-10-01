@@ -30,7 +30,7 @@ public class RegistrationServlet extends HttpServlet {
             admins.setPassword(passwords[0]);
             AdminsDao adminsDao = new AdminsDao();
             adminsDao.createAdmin(admins);
-            response.sendRedirect("/WEB-INF/login");
+            response.sendRedirect("/login");
 
         } else {
             if (!samePass) {
