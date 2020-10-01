@@ -10,7 +10,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlanDao {
+public class lanDao {
     //zapytania
     private static final String CREATE_PLAN_QUERY = "INSERT INTO plan(name , description, created, admin_id) VALUES (?,?,?,?)";
     private static final String READ_PLAN_QUERY = "SELECT * FROM plan WHERE id=?";
