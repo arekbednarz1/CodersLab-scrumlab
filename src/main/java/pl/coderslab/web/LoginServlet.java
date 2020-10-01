@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
         else {
             String wrw = "Wpisz poprawne dane";
             request.setAttribute("wrong", wrw);
-            getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
     }
 
@@ -44,6 +44,6 @@ public class LoginServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 }
