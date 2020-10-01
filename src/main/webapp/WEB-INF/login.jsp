@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
-<%@include file="view/header.jsp"%>
+<%@include file="views/header.jsp"%>
 
 <body>
 <section class="dashboard-section">

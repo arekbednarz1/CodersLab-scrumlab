@@ -25,23 +25,21 @@ public class LoginServlet extends HttpServlet {
         if (isNotNull && isNotZero) {
             AdminsDao adminsDao = new AdminsDao();
             Admins admins = adminsDao.readAdminEmail(email);
-            if (admins != null) {
+            if (admins.getEmail() != null) {
                 if (BCrypt.checkpw(password, admins.getPassword())) {
                     HttpSession httpSession = request.getSession();
                     httpSession.setAttribute("admin", admins);
                     response.sendRedirect(request.getContextPath() + "/app");
+                    return;
                 }
+                else request.setAttribute("wrong", "Błędne hasło");
             }
+            else request.setAttribute("wrong", "Brak podanego użytkownika");
         }
-        else {
-            String wrw = "Wpisz poprawne dane";
-            request.setAttribute("wrong", wrw);
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        }
+        else request.setAttribute("wrong", "Wpisz poprawne dane");
+
+        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
-
-
-
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
