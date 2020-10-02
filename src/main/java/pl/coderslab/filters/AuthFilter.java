@@ -19,8 +19,8 @@ public class AuthFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
 
         HttpSession session = request.getSession();
-
-        if(session.getAttribute("admin") == null) {
+        Admins admin = (Admins) session.getAttribute("admin");
+        if(admin == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }

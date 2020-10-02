@@ -46,8 +46,10 @@ public class ServletAddPlanList extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Admins admin = (Admins) session.getAttribute("admin");
+        request.setAttribute("username", admin.getFirstName());
+
         getServletContext().getRequestDispatcher("/WEB-INF/addPlan.jsp").forward(request, response);
-
-
     }
 }

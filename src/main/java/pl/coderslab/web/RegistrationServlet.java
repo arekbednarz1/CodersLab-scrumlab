@@ -22,13 +22,16 @@ public class RegistrationServlet extends HttpServlet {
         Boolean isNull = name != null && surname != null && email != null && passwords != null;
         Boolean isZero = name.length() != 0 && surname.length() != 0 && email.length() != 0 && passwords.length != 0;
         Boolean samePass = passwords[0].equals(passwords[1]);
-        if (isNull && isZero && samePass) {
-            Admins admins = new Admins();
+
+        AdminsDao adminsDao = new AdminsDao();
+        Admins admins = adminsDao.readAdminEmail(email);
+        Boolean newEmail = (admins.getEmail() == null);
+
+        if (isNull && isZero && samePass && newEmail) {
             admins.setFirstName(name);
             admins.setLastName(surname);
             admins.setEmail(email);
             admins.setPassword(passwords[0]);
-            AdminsDao adminsDao = new AdminsDao();
             adminsDao.createAdmin(admins);
             response.sendRedirect("/login");
 
@@ -41,9 +44,10 @@ public class RegistrationServlet extends HttpServlet {
                 String wr = "Uzupełnij wszystkie pola";
                 request.setAttribute("all", wr);
             }
+            if(!newEmail) {
+                request.setAttribute("userExists", "Taki użytkownik już istnieje");
+            }
             getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
-
-
         }
     }
 

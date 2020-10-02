@@ -1,7 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-<%@include file="view/header.jsp"%>
+<%@include file="views/header.jsp"%>
 
 <section class="padding-large bg-light">
     <div id="carouselExampleControls" class="carousel slide main-slider" data-ride="carousel">
@@ -107,4 +106,4 @@
     </div>
 </section>
 
-<%@ include file="view/footer.jsp"%>
+<%@ include file="views/footer.jsp"%>
