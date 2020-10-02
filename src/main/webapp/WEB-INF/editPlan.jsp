@@ -1,13 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
   User: arkadiusz
-  Date: 01.10.2020
-  Time: 15:09
+  Date: 02.10.2020
+  Time: 01:24
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -76,44 +76,45 @@
             </li>
         </ul>
 
+
         <div class="m-4 p-3 width-medium">
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
-                <div class="row border-bottom border-3 p-1 m-1">
-                    <div class="col noPadding">
-                        <h3 class="color-header text-uppercase">LISTA PLANÓW</h3>
+                <!-- fix action, method -->
+                <!-- add name attribute for all inputs -->
+                <form action="/app/plan/edit" method="post">
+                    <div class="row border-bottom border-3 p-1 m-1">
+                        <div class="col noPadding">
+                            <h3 class="color-header text-uppercase">NOWY PLAN</h3>
+                        </div>
+                        <div class="col d-flex justify-content-end mb-2">
+                            <button type="submit" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz</button>
+                        </div>
                     </div>
-                    <div class="col d-flex justify-content-end mb-2 noPadding">
-                        <a href="/app/plan/add" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj plan</a>
-                    </div>
-                </div>
 
-                <div class="schedules-content">
-                    <table class="table border-bottom">
-                        <thead>
-                        <tr class="d-flex">
-                            <th class="col-1">ID</th>
-                            <th class="col-2">NAZWA</th>
-                            <th class="col-7">OPIS</th>
-                            <th class="col-2 center">AKCJE</th>
-                        </tr>
-                        </thead>
-                        <c:forEach items="${list}" var="plan">
-                        <tbody class="text-color-lighter">
-                            <tr class="d-flex">
-                                <td class="col-1">${plan.id}</td>
-                                <td class="col-2">${plan.name}</td>
-                                <td class="col-7">${plan.description}</td>
-                                <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
-                                    <a href="/app/plan/delete?deleteId=${plan.id}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                    <a href="/app/plan/details?planId=${plan.id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                    <a href="/app/plan/edit?editId=${plan.id}" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
-                                </td>
-                            </tr>
-                            </form>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
+                    <div class="schedules-content">
+
+                        <div class="form-group row">
+                            <label for="planName" class="col-sm-2 label-size col-form-label">
+                                Nazwa planu
+                            </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" value="${plan.name}" id="planName" name="planName" placeholder="Nazwa planu">
+                                <input type="hidden" name="idplan" value="${plan.id}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="planDescription" class="col-sm-2 label-size col-form-label">
+                                Opis planu
+                            </label>
+                            <div class="col-sm-10">
+                                    <textarea class="form-control" rows="5" id="planDescription" name="planDescription" placeholder="Opis plany">
+                                        ${plan.description}
+                                    </textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -127,18 +128,3 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 </body>
-</html>
-
-
-
-<%--                            <c:forEach items="${list}" var="plan">--%>
-<%--                                <tr class="d-flex">--%>
-<%--                                <td class="col-1">${plan.id}</td>--%>
-<%--                                <td class="col-2">${plan.name}</td>--%>
-<%--                                <td class="col-7">${plan.description}--%>
-<%--                                </td>--%>
-<%--                                <td class="col-2 d-flex align-items-center justify-content-center flex-wrap"><a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>--%>
-<%--                                <a href="/app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>--%>
-<%--                                <a href="/app-edit-schedules.html" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>--%>
-<%--                                </td>--%>
-<%--                                </tr>--%>

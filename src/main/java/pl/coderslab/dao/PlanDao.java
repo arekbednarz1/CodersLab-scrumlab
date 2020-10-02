@@ -2,6 +2,7 @@ package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
 import pl.coderslab.model.Plan;
+import pl.coderslab.model.RecipePlanObj;
 import pl.coderslab.utils.DbUtil;
 
 import java.sql.*;
@@ -18,7 +19,8 @@ public class PlanDao {
     private static final String UPDATE_PLAN_QUERY = "UPDATE plan SET name=?, description=? WHERE id=?";
     private static final String DELETE_PLAN_QUERY = "DELETE FROM plan WHERE id=?";
     private static final String READ_ALL_PLAN_ADMIN_QUERY = "SELECT * FROM plan WHERE admin_id=?";
-
+    private static final String GET_RECIPE_PLAN_BY_PLAN_ID = "SELECT day_name.name as day_name, meal_name, recipe.id, recipe.name as recipe_name, recipe.description as recipe_description FROM recipe_plan JOIN day_name on day_name.id=day_name_id JOIN recipe on recipe.id=recipe_id WHERE plan_id = ? ORDER by day_name.display_order, recipe_plan.display_order;";
+    private static final String UPDATE_PLAN_QUERY_ADMIN = "UPDATE	plan SET name = ?, description = ?, admin_id = ? WHERE	id = ?;";
 
     /*
      * Create plan
@@ -29,8 +31,8 @@ public class PlanDao {
              PreparedStatement statement = conn.prepareStatement(CREATE_PLAN_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, plan.getName());
             statement.setString(2, plan.getDescription());
-            statement.setString(3,plan.getCreated());
-            statement.setInt(4,plan.getAdminId());
+            statement.setString(3, plan.getCreated());
+            statement.setInt(4, plan.getAdminId());
 
             int result = statement.executeUpdate();
 
@@ -75,19 +77,19 @@ public class PlanDao {
     }
 
     public List<Plan> readPlanAdmin(int adminId) {
-        List<Plan>list =new ArrayList<>();
+        List<Plan> list = new ArrayList<>();
         try (Connection conn = DbUtil.getConnection();
              PreparedStatement statement = conn.prepareStatement(READ_ALL_PLAN_ADMIN_QUERY)) {
             statement.setInt(1, adminId);
             ResultSet resultSet = statement.executeQuery();
-                while (resultSet.next()) {
-                    Plan plan = new Plan();
-                    plan.setId(resultSet.getInt("id"));
-                    plan.setName(resultSet.getString("name"));
-                    plan.setDescription(resultSet.getString("description"));
-                    plan.setCreated(resultSet.getString("created"));
-                    list.add(plan);
-                }
+            while (resultSet.next()) {
+                Plan plan = new Plan();
+                plan.setId(resultSet.getInt("id"));
+                plan.setName(resultSet.getString("name"));
+                plan.setDescription(resultSet.getString("description"));
+                plan.setCreated(resultSet.getString("created"));
+                list.add(plan);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -133,6 +135,19 @@ public class PlanDao {
             e.printStackTrace();
         }
     }
+    public void updatePlanAdmin(Plan plan) {
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(UPDATE_PLAN_QUERY_ADMIN)) {
+            statement.setInt(4, plan.getId());
+            statement.setString(1, plan.getName());
+            statement.setString(2, plan.getDescription());
+            statement.setInt(3, plan.getAdmin().getId());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /*
      * Delete plan
@@ -150,5 +165,34 @@ public class PlanDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    public static List<RecipePlanObj> getRecipePlanByPLanId(int id) {
+        List <RecipePlanObj> list = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_RECIPE_PLAN_BY_PLAN_ID)
+        ) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    RecipePlanObj recipePlanNonObjShort = new RecipePlanObj();
+                    recipePlanNonObjShort.setDayName(resultSet.getString("day_name"));
+                    recipePlanNonObjShort.setMealName(resultSet.getString("meal_name"));
+                    recipePlanNonObjShort.setRecipeId(resultSet.getString("id"));
+                    recipePlanNonObjShort.setRecipeName(resultSet.getString("recipe_name"));
+                    recipePlanNonObjShort.setRecipeDescription(resultSet.getString("recipe_description"));
+                    list.add(recipePlanNonObjShort);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        return list;
+
     }
 }

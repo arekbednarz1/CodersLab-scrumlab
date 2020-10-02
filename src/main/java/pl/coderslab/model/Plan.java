@@ -15,6 +15,7 @@ public class Plan {
     private String description;
     private String created;
     private int adminId;
+    private Admins admin;
 
     public Plan() {
     }
@@ -23,6 +24,20 @@ public class Plan {
         this.name = name;
         this.description = description;
         this.created = created;
+    }
+
+    public Plan(String name, String description, Admins admin) {
+        this.name = name;
+        this.description = description;
+        this.admin = admin;
+    }
+
+    public Admins getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admins admin) {
+        this.admin = admin;
     }
 
     @Override
