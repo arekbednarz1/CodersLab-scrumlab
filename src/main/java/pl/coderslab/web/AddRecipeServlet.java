@@ -48,10 +48,6 @@ public class AddRecipeServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        HttpSession session = request.getSession();
-        Admins admin = (Admins) session.getAttribute("admin");
-        request.setAttribute("username", admin.getFirstName());
-
         getServletContext().getRequestDispatcher("/WEB-INF/addRecipe.jsp").forward(request, response);
     }
 }

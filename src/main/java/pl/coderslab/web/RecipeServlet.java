@@ -23,7 +23,6 @@ public class RecipeServlet extends HttpServlet {
         RecipeDao recipeDao = new RecipeDao();
         HttpSession session = request.getSession();
         Admins admin = (Admins) session.getAttribute("admin");
-        request.setAttribute("username", admin.getFirstName());
         request.setAttribute("recipes", recipeDao.readAllAdminRecipes(admin.getId()));
         getServletContext().getRequestDispatcher("/WEB-INF/AdminRecipe.jsp").forward(request, response);
     }

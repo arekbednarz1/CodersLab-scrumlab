@@ -460,3 +460,11 @@ margin: 0 auto !important;
 .week-day {
   text-transform:capitalize;
 }
+.col-7-description {
+  flex: 0 0 40% !important;
+  max-width: 40% !important;;
+}
+.col-2-btns {
+  flex: auto !important;;
+  max-width: inherit !important;;
+}

@@ -21,8 +21,8 @@
                 <tr class="d-flex">
                     <th class="col-1">ID</th>
                     <th class="col-2">NAZWA</th>
-                    <th class="col-7">OPIS</th>
-                    <th class="col-2 center">AKCJE</th>
+                    <th class="col-7-description">OPIS</th>
+                    <th class="col-2-btns center">AKCJE</th>
                 </tr>
                 </thead>
                 <c:forEach items="${list}" var="plan">
@@ -30,8 +30,8 @@
                     <tr class="d-flex">
                         <td class="col-1">${plan.id}</td>
                         <td class="col-2">${plan.name}</td>
-                        <td class="col-7">${plan.description}</td>
-                        <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
+                        <td class="col-7-description">${plan.description}</td>
+                        <td class="col-2-btns d-flex align-items-center justify-content-center flex-wrap">
                             <a href="/app/plan/delete?deleteId=${plan.id}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
                             <a href="/app/plan/details?planId=${plan.id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                             <a href="/app/plan/edit?editId=${plan.id}" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>

@@ -18,7 +18,6 @@ import java.util.List;
 @WebServlet(name = "ServletEditPlan",urlPatterns = {"/app/plan/edit"})
 public class ServletEditPlan extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         HttpSession session = request.getSession();
         PlanDao planDao = new PlanDao();
         String name = request.getParameter("planName");
@@ -31,8 +30,6 @@ public class ServletEditPlan extends HttpServlet {
         planDao.updatePlanAdmin(plan);
 
         response.sendRedirect("/app/plan/list");
-
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -18,14 +18,11 @@ public class DeleteRecipeServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Admins admin = (Admins) session.getAttribute("admin");
-        request.setAttribute("username", admin.getFirstName());
         RecipeDao recipeDao = new RecipeDao();
         String idValue = request.getParameter("id");
         int id = Integer.parseInt(idValue);
         recipeDao.deleteRecipe(id);
-       getServletContext().getRequestDispatcher("/app/recipe/list/").forward(request,response);
+        getServletContext().getRequestDispatcher("/app/recipe/list/").forward(request,response);
 
     }
 }

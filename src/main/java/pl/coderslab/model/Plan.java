@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 
 public class Plan {
 
-    private int id;
-    private String name;
+    public int id;
+    public String name;
     private String description;
     private String created;
     private int adminId;

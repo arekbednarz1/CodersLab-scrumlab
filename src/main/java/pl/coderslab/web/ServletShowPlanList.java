@@ -28,8 +28,6 @@ public class ServletShowPlanList extends HttpServlet {
         List<Plan> list = planDao.readPlanAdmin(id);
         request.setAttribute("list",list);
         getServletContext().getRequestDispatcher("/WEB-INF/PlanLIst.jsp").forward(request, response);
-
-
     }
 
 }

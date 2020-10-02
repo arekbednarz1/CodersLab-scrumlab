@@ -68,10 +68,6 @@ public class EditRecipeServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        HttpSession session = request.getSession();
-        Admins admin = (Admins) session.getAttribute("admin");
-        request.setAttribute("username", admin.getFirstName());
-
         RecipeDao recipeDao = new RecipeDao();
         int id = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("showDetails", recipeDao.readRecipe(id));

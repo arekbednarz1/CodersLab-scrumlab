@@ -30,8 +30,6 @@ public class ServletPlansDetails extends HttpServlet {
 
         request.setAttribute("plan", planDao.readPlan(planId));
 
-
-
         List <RecipePlanObj> list = PlanDao.getRecipePlanByPLanId(planId);
 
         List<RecipePlanObj> pon = new ArrayList<>();

@@ -6,12 +6,8 @@ import pl.coderslab.model.Admins;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
-
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
@@ -24,11 +20,14 @@ public class LoginServlet extends HttpServlet {
 
         if (isNotNull && isNotZero) {
             AdminsDao adminsDao = new AdminsDao();
-            Admins admins = adminsDao.readAdminEmail(email);
-            if (admins != null) {
-                if (BCrypt.checkpw(password, admins.getPassword())) {
+            Admins admin = adminsDao.readAdminEmail(email);
+            if (admin != null) {
+                if (BCrypt.checkpw(password, admin.getPassword())) {
                     HttpSession httpSession = request.getSession();
-                    httpSession.setAttribute("admin", admins);
+                    httpSession.setAttribute("admin", admin);
+                    Cookie username = new Cookie("username", admin.getFirstName());
+                    username.setMaxAge(3600*24*31*12);
+                    response.addCookie(username);
                     response.sendRedirect(request.getContextPath() + "/app");
                     return;
                 }

@@ -20,7 +20,7 @@
                 </a>
             </div>
             <div class="menu-item border-dashed">
-                <a href="">
+                <a href="<c:url value='/app/recipe/plan/add' />">
                     <i class="far fa-plus-square icon-plus-square"></i>
                     <span class="title">dodaj przepis do planu</span>
                 </a>
@@ -41,6 +41,10 @@
 
     <%-- Show last plan schedule only if it exists --%>
     <c:if test="${not empty lastPlan.name}">
+
+        <c:if test="${not empty recipePlanCreated}">
+            <h3 class="dashboard-content-title">${recipePlanCreated}</h3>
+        </c:if>
 
         <div class="m-4 p-4 border-dashed">
             <h2 class="dashboard-content-title">
@@ -65,7 +69,9 @@
                         <tr class="d-flex">
                             <td class="col-2">${day[1]}</td>
                             <td class="col-8">${day[2]}</td>
-                            <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
+                            <td class="col-2">
+                                <a href="<c:url value="app/recipe/details?id=${day[3]}" /> " class="btn btn-primary rounded-0">Szczegóły</a>
+                            </td>
                         </tr>
                 <%-- close table if next day is different than previous --%>
                 <c:if test="${day[0] != dayAlreadyExists}">

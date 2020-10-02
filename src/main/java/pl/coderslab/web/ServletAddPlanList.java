@@ -18,23 +18,24 @@ import java.util.Date;
 @WebServlet(name = "ServletAddPlanList",urlPatterns = {"/app/plan/add"})
 public class ServletAddPlanList extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Admins admin = (Admins) session.getAttribute("admin");
+
         String name = request.getParameter("nazwaPlanu");
-        String decription = request.getParameter("opisPlanu");
-        Boolean notNull = name != null && decription != null;
-        Boolean notZero = name.length() != 0 && decription.length() != 0;
+        String description = request.getParameter("opisPlanu");
+        Boolean notNull = name != null && description != null;
+        Boolean notZero = name.length() != 0 && description.length() != 0;
         if (notNull && notZero) {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
             String dateString = formatter.format(date);
 
             PlanDao planDao = new PlanDao();
-            HttpSession session = request.getSession();
-            Admins admins = (Admins) session.getAttribute("admin");
-            int id = admins.getId();
+            int id = admin.getId();
             Plan plan = new Plan();
             plan.setAdminId(id);
             plan.setName(name);
-            plan.setDescription(decription);
+            plan.setDescription(description);
             plan.setCreated(dateString);
             planDao.createPlan(plan);
             response.sendRedirect("/app/plan/list");
@@ -46,10 +47,6 @@ public class ServletAddPlanList extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Admins admin = (Admins) session.getAttribute("admin");
-        request.setAttribute("username", admin.getFirstName());
-
         getServletContext().getRequestDispatcher("/WEB-INF/addPlan.jsp").forward(request, response);
     }
 }
