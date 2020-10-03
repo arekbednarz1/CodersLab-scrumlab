@@ -7,10 +7,7 @@ import pl.coderslab.model.Recipe;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -50,6 +47,9 @@ public class EditAdminServlet extends HttpServlet {
         }
 
         adminsDao.updateAdminData(admins);
+        Cookie username = new Cookie("username", admins.getFirstName());
+        username.setMaxAge(3600*24*31*12);
+        response.addCookie(username);
         response.sendRedirect(request.getContextPath() + "/app");
     }
 

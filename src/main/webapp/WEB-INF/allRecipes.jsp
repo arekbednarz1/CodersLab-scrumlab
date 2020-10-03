@@ -18,7 +18,7 @@
             <th scope="col" class="col-1">ID</th>
             <th scope="col" class="col-5">NAZWA</th>
             <th scope="col" class="col-5">OPIS</th>
-            <th scope="col" class="col-1">AKCJE</th>
+            <th scope="col" class="col-2-btns">AKCJE</th>
         </tr>
         </thead>
         <c:forEach var="recipe" items="${recipe}">
