@@ -4,7 +4,7 @@
               auth="Container"
               type="javax.sql.DataSource"
               username="root"
-              password="coderslab"
+              password="password"
               driverClassName="com.mysql.jdbc.Driver"
               connectionProperties="useUnicode=yes;characterEncoding=utf8;useSSL=false;serverTimezone=UTC;allowPublicKeyRetrieval=true"
               url="jdbc:mysql://localhost:3306/scrumlab"
