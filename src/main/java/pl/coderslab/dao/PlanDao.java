@@ -21,16 +21,8 @@ public class PlanDao {
     private static final String DELETE_PLAN_QUERY = "DELETE FROM plan WHERE id=?";
     private static final String COUNT_PLANS_QUERY = "SELECT COUNT(*) FROM plan WHERE admin_id=?";
     private static final String GET_LAST_PLAN_QUERY = "SELECT * FROM plan WHERE admin_id=? ORDER BY created DESC LIMIT 1";
-    private static final String GET_DETAILED_LAST_PLAN_QUERY =
-        "SELECT day_name.name as day_name, meal_name,  recipe.name as recipe_name, recipe_id "+
-        "FROM `recipe_plan` "+
-        "JOIN day_name on day_name.id=day_name_id "+
-        "JOIN recipe on recipe.id=recipe_id WHERE "+
-        "recipe_plan.plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?) "+
-        "ORDER by day_name.display_order, recipe_plan.display_order";
     private static final String READ_ALL_PLAN_ADMIN_QUERY = "SELECT * FROM plan WHERE admin_id=?";
-    private static final String GET_RECIPE_PLAN_BY_PLAN_ID = "SELECT day_name.name as day_name, meal_name, recipe.id, recipe.name as recipe_name, recipe.description as recipe_description FROM recipe_plan JOIN day_name on day_name.id=day_name_id JOIN recipe on recipe.id=recipe_id WHERE plan_id = ? ORDER by day_name.display_order, recipe_plan.display_order;";
-    private static final String UPDATE_PLAN_QUERY_ADMIN = "UPDATE	plan SET name = ?, description = ?, admin_id = ? WHERE	id = ?;";
+    private static final String UPDATE_PLAN_QUERY_ADMIN = "UPDATE plan SET name = ?, description = ?, admin_id = ? WHERE id = ?;";
 
     /*
      * Create plan
@@ -247,60 +239,4 @@ public class PlanDao {
         return plan;
     }
 
-    /*
-     * Get last detailed plan made by specific user
-     * example:
-     * poniedziałek,Śniadanie,Przepis 2,Opis przepisu 2
-     * poniedziałek,Kolacja,Przepis 1,Opis przepisu 1
-     */
-
-    public List<String[]> getLastPlanDetailed(int adminID) {
-        List<String[]> lastDetailedPlan = new ArrayList<>();
-        try (Connection conn = DbUtil.getConnection();
-             PreparedStatement statement = conn.prepareStatement(GET_DETAILED_LAST_PLAN_QUERY)) {
-            statement.setInt(1, adminID);
-            try(ResultSet rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    String[] planRow = new String[4];
-                    planRow[0] = rs.getString("day_name");
-                    planRow[1] = rs.getString("meal_name");
-                    planRow[2] = rs.getString("recipe_name");
-                    planRow[3] = rs.getString("recipe_id");
-                    lastDetailedPlan.add(planRow);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return lastDetailedPlan;
-    }
-
-
-    public static List<RecipePlanObj> getRecipePlanByPLanId(int id) {
-        List <RecipePlanObj> list = new ArrayList<>();
-        try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GET_RECIPE_PLAN_BY_PLAN_ID)
-        ) {
-            statement.setInt(1, id);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    RecipePlanObj recipePlanNonObjShort = new RecipePlanObj();
-                    recipePlanNonObjShort.setDayName(resultSet.getString("day_name"));
-                    recipePlanNonObjShort.setMealName(resultSet.getString("meal_name"));
-                    recipePlanNonObjShort.setRecipeId(resultSet.getString("id"));
-                    recipePlanNonObjShort.setRecipeName(resultSet.getString("recipe_name"));
-                    recipePlanNonObjShort.setRecipeDescription(resultSet.getString("recipe_description"));
-                    list.add(recipePlanNonObjShort);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (list.isEmpty()) {
-            return null;
-        }
-
-        return list;
-
-    }
 }

@@ -18,6 +18,10 @@ import java.util.List;
 @WebServlet(name = "ServletEditPlan",urlPatterns = {"/app/plan/edit"})
 public class ServletEditPlan extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
         HttpSession session = request.getSession();
         PlanDao planDao = new PlanDao();
         String name = request.getParameter("planName");
