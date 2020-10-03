@@ -3,6 +3,7 @@ package pl.coderslab.web;
 import pl.coderslab.dao.AdminsDao;
 import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipeDao;
+import pl.coderslab.dao.RecipePlanDao;
 import pl.coderslab.model.Admins;
 import pl.coderslab.model.Plan;
 
@@ -41,7 +42,8 @@ public class DashboardServlet extends HttpServlet {
         request.setAttribute("lastPlan", lastPlan);
 
         // get detailed information about last plan user created and display it on dashbord
-        List<String[]> lastDetailedPlan = planDao.getLastPlanDetailed(admin.getId());
+        RecipePlanDao recipePlanDao = new RecipePlanDao();
+        List<String[]> lastDetailedPlan = recipePlanDao.getLastPlanDetailed(admin.getId());
         request.setAttribute("lastDetailedPlan", lastDetailedPlan);
 
         String recipePlanCreated = request.getParameter("recipePlanCreated");

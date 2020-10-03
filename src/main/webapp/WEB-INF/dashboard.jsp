@@ -42,10 +42,6 @@
     <%-- Show last plan schedule only if it exists --%>
     <c:if test="${not empty lastPlan.name}">
 
-        <c:if test="${not empty recipePlanCreated}">
-            <h3 class="dashboard-content-title">${recipePlanCreated}</h3>
-        </c:if>
-
         <div class="m-4 p-4 border-dashed">
             <h2 class="dashboard-content-title">
                 <span>Ostatnio dodany plan:</span> ${lastPlan.name}
@@ -64,7 +60,7 @@
                             <th class="col-2"></th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-color-lighter">
                 </c:if>
                         <tr class="d-flex">
                             <td class="col-2">${day[1]}</td>

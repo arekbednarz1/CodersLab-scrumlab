@@ -1,6 +1,7 @@
 package pl.coderslab.web;
 
 import pl.coderslab.dao.PlanDao;
+import pl.coderslab.dao.RecipePlanDao;
 import pl.coderslab.model.Admins;
 import pl.coderslab.model.Plan;
 import pl.coderslab.model.RecipePlanObj;
@@ -30,47 +31,51 @@ public class ServletPlansDetails extends HttpServlet {
 
         request.setAttribute("plan", planDao.readPlan(planId));
 
-        List <RecipePlanObj> list = PlanDao.getRecipePlanByPLanId(planId);
+        RecipePlanDao recipePlanDao = new RecipePlanDao();
+        List<String[]> detailedPlan = recipePlanDao.getRecipePlanByPLanId(planId);
+        request.setAttribute("detailedPlan", detailedPlan);
+        request.setAttribute("planId", planId);
 
-        List<RecipePlanObj> pon = new ArrayList<>();
-        List<RecipePlanObj> wt = new ArrayList<>();
-        List<RecipePlanObj> sr = new ArrayList<>();
-        List<RecipePlanObj> czw = new ArrayList<>();
-        List<RecipePlanObj> pt = new ArrayList<>();
-        List<RecipePlanObj> sob = new ArrayList<>();
-        List<RecipePlanObj> ndz = new ArrayList<>();
+//        List <RecipePlanObj> list = RecipePlanDao.getRecipePlanByPLanId(planId);
+//
+//        List<RecipePlanObj> pon = new ArrayList<>();
+//        List<RecipePlanObj> wt = new ArrayList<>();
+//        List<RecipePlanObj> sr = new ArrayList<>();
+//        List<RecipePlanObj> czw = new ArrayList<>();
+//        List<RecipePlanObj> pt = new ArrayList<>();
+//        List<RecipePlanObj> sob = new ArrayList<>();
+//        List<RecipePlanObj> ndz = new ArrayList<>();
+//
+//        if (list != null) {
+//            ListIterator<RecipePlanObj> listIterator = list.listIterator();
+//
+//            while (listIterator.hasNext()) {
+//                RecipePlanObj rec = listIterator.next();
+//                if ("poniedziałek".equals(rec.getDayName())) {
+//                    pon.add(rec);
+//                } else if ("wtorek".equals(rec.getDayName())) {
+//                    wt.add(rec);
+//                } else if ("środa".equals(rec.getDayName())) {
+//                    sr.add(rec);
+//                } else if ("czwartek".equals(rec.getDayName())) {
+//                    czw.add(rec);
+//                } else if ("piątek".equals(rec.getDayName())) {
+//                    pt.add(rec);
+//                } else if ("sobota".equals(rec.getDayName())) {
+//                    sob.add(rec);
+//                } else if ("niedziela".equals(rec.getDayName())) {
+//                    ndz.add(rec);
+//                }
+//            }
+//            request.setAttribute("pon", pon);
+//            request.setAttribute("wt", wt);
+//            request.setAttribute("sr", sr);
+//            request.setAttribute("czw", czw);
+//            request.setAttribute("pt", pt);
+//            request.setAttribute("sob", sob);
+//            request.setAttribute("ndz", ndz);
 
-        if (list != null) {
-            ListIterator<RecipePlanObj> listIterator = list.listIterator();
-
-            while (listIterator.hasNext()) {
-                RecipePlanObj rec = listIterator.next();
-                if ("poniedziałek".equals(rec.getDayName())) {
-                    pon.add(rec);
-                } else if ("wtorek".equals(rec.getDayName())) {
-                    wt.add(rec);
-                } else if ("środa".equals(rec.getDayName())) {
-                    sr.add(rec);
-                } else if ("czwartek".equals(rec.getDayName())) {
-                    czw.add(rec);
-                } else if ("piątek".equals(rec.getDayName())) {
-                    pt.add(rec);
-                } else if ("sobota".equals(rec.getDayName())) {
-                    sob.add(rec);
-                } else if ("niedziela".equals(rec.getDayName())) {
-                    ndz.add(rec);
-                }
-            }
-            request.setAttribute("pon", pon);
-            request.setAttribute("wt", wt);
-            request.setAttribute("sr", sr);
-            request.setAttribute("czw", czw);
-            request.setAttribute("pt", pt);
-            request.setAttribute("sob", sob);
-            request.setAttribute("ndz", ndz);
-        }
         getServletContext().getRequestDispatcher("/WEB-INF/planDetails.jsp").forward(request, response);
     }
-
-    }
+}
 

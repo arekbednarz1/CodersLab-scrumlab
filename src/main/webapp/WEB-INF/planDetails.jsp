@@ -36,206 +36,35 @@
                 </div>
             </div>
 
-
-            <c:if test="${not empty pon}">
-                <table class="table">
-                    <thead>
+            <%-- Show weekly schedule for plan --%>
+            <c:forEach var="day" items="${detailedPlan}">
+                <%-- List same day only once --%>
+                <c:if test="${day[0] != dayAlreadyExists}">
+                    <c:set var="dayAlreadyExists" value="${day[0]}" />
+            <table class="table">
+                <thead>
                     <tr class="d-flex">
-                        <th class="col-2">Poniedziałek</th>
+                        <th class="col-2 week-day">${day[0]}</th>
                         <th class="col-7"></th>
-                        <th class="col-1"></th>
-                        <th class="col-2"></th>
+                        <th class="col-2-btns"></th>
                     </tr>
-                    </thead>
-                    <tbody class="text-color-lighter">
-                    <c:forEach items="${pon}" var="rep">
-                        <tr class="d-flex">
-                            <td class="col-2">${rep.mealName}</td>
-                            <td class="col-7">${rep.recipeName}</td>
-                            <td class="col-1 center">
-
-                            </td>
-                            <td class="col-2 center">
-                                <a href="/recipeDetails?recipeId=${rep.recipeId}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </c:if>
-
-            <c:if test="${not empty wt}">
-                <table class="table">
-                    <thead>
-                    <tr class="d-flex">
-                        <th class="col-2">Wtorek</th>
-                        <th class="col-7"></th>
-                        <th class="col-1"></th>
-                        <th class="col-2"></th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-color-lighter">
-                    <c:forEach items="${wt}" var="rep">
-                        <tr class="d-flex">
-                            <td class="col-2">${rep.mealName}</td>
-                            <td class="col-7">${rep.recipeName}</td>
-                            <td class="col-1 center">
-
-                            </td>
-                            <td class="col-2 center">
-                                <a href="/recipeDetails?recipeId=${rep.recipeId}"
-                                   class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </c:if>
-
-            <c:if test="${not empty sr}">
-                <table class="table">
-                    <thead>
-                    <tr class="d-flex">
-                        <th class="col-2">Środa</th>
-                        <th class="col-7"></th>
-                        <th class="col-1"></th>
-                        <th class="col-2"></th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-color-lighter">
-                    <c:forEach items="${sr}" var="rep">
-                        <tr class="d-flex">
-                            <td class="col-2">${rep.mealName}</td>
-                            <td class="col-7">${rep.recipeName}</td>
-                            <td class="col-1 center">
-
-                            </td>
-                            <td class="col-2 center">
-                                <a href="/recipeDetails?recipeId=${rep.recipeId}"
-                                   class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </c:if>
-
-
-            <c:if test="${not empty czw}">
-                <table class="table">
-                    <thead>
-                    <tr class="d-flex">
-                        <th class="col-2">Czwartek</th>
-                        <th class="col-7"></th>
-                        <th class="col-1"></th>
-                        <th class="col-2"></th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-color-lighter">
-                    <c:forEach items="${czw}" var="rep">
-                        <tr class="d-flex">
-                            <td class="col-2">${rep.mealName}</td>
-                            <td class="col-7">${rep.recipeName}</td>
-                            <td class="col-1 center">
-
-                            </td>
-                            <td class="col-2 center">
-                                <a href="/recipeDetails?recipeId=${rep.recipeId}"
-                                   class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </c:if>
-
-
-            <c:if test="${not empty pt}">
-                <table class="table">
-                    <thead>
-                    <tr class="d-flex">
-                        <th class="col-2">Piątek</th>
-                        <th class="col-7"></th>
-                        <th class="col-1"></th>
-                        <th class="col-2"></th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-color-lighter">
-                    <c:forEach items="${pt}" var="rep">
-                        <tr class="d-flex">
-                            <td class="col-2">${rep.mealName}</td>
-                            <td class="col-7">${rep.recipeName}</td>
-                            <td class="col-1 center">
-
-                            </td>
-                            <td class="col-2 center">
-                                <a href="/recipeDetails?recipeId=${rep.recipeId}"
-                                   class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </c:if>
-
-
-            <c:if test="${not empty sob}">
-                <table class="table">
-                    <thead>
-                    <tr class="d-flex">
-                        <th class="col-2">Sobota</th>
-                        <th class="col-7"></th>
-                        <th class="col-1"></th>
-                        <th class="col-2"></th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-color-lighter">
-                    <c:forEach items="${sob}" var="rep">
-                        <tr class="d-flex">
-                            <td class="col-2">${rep.mealName}</td>
-                            <td class="col-7">${rep.recipeName}</td>
-                            <td class="col-1 center">
-
-                            </td>
-                            <td class="col-2 center">
-                                <a href="/recipeDetails?recipeId=${rep.recipeId}"
-                                   class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </c:if>
-
-
-            <c:if test="${not empty ndz}">
-                <table class="table">
-                    <thead>
-                    <tr class="d-flex">
-                        <th class="col-2">Niedziela</th>
-                        <th class="col-7"></th>
-                        <th class="col-1"></th>
-                        <th class="col-2"></th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-color-lighter">
-                    <c:forEach items="${ndz}" var="rep">
-                        <tr class="d-flex">
-                            <td class="col-2">${rep.mealName}</td>
-                            <td class="col-7">${rep.recipeName}</td>
-                            <td class="col-1 center">
-
-                            </td>
-                            <td class="col-2 center">
-                                <a href="/recipeDetails?recipeId=${rep.recipeId}"
-                                   class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </c:if>
-
+                </thead>
+                <tbody class="text-color-lighter">
+                </c:if>
+                <tr class="d-flex">
+                    <td class="col-2">${day[1]}</td>
+                    <td class="col-7">${day[2]}</td>
+                    <td class="col-2-btns">
+                        <a href="<c:url value="/app/recipe/plan/delete?id=${day[4]}&planId=${planId}" />" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                        <a href="<c:url value="/app/recipe/details?id=${day[3]}" />" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                    </td>
+                </tr>
+                <%-- close table if next day is different than previous --%>
+                <c:if test="${day[0] != dayAlreadyExists}">
+                </tbody>
+            </table>
+                </c:if>
+            </c:forEach>
         </div>
     </div>
 </div>
