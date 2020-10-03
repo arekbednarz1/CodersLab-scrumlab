@@ -1,12 +1,14 @@
 package pl.coderslab.web;
 
 import pl.coderslab.dao.RecipeDao;
+import pl.coderslab.model.Admins;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.ResultSet;
 
@@ -19,6 +21,16 @@ public class AllRecipesDetailsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
+
+        HttpSession session = request.getSession();
+        Admins admin = (Admins) session.getAttribute("admin");
+        if(admin == null) {
+            request.setAttribute("logged", false);
+        }
+        else {
+            request.setAttribute("logged", true);
+        }
+
         String idValue = request.getParameter("id");
         RecipeDao recipeDao = new RecipeDao();
         int id = Integer.parseInt(idValue);

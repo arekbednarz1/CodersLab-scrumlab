@@ -23,10 +23,20 @@
         </a>
         <ul class="nav nounderline text-uppercase">
             <li class="nav-item ml-4">
-                <a class="nav-link color-header" href="/login">logowanie</a>
+                <c:if test="${logged}">
+                    <a class="nav-link color-header" href="<c:url value='/app' />">Zaplanuj Posiłki</a>
+                </c:if>
+                <c:if test="${not logged}">
+                    <a class="nav-link color-header" href="<c:url value='/login' />">logowanie</a>
+                </c:if>
             </li>
             <li class="nav-item ml-4">
-                <a class="nav-link color-header" href="/register">rejestracja</a>
+                <c:if test="${logged}">
+                    <a class="nav-link color-header" href="<c:url value='/logout' />">wyloguj</a>
+                </c:if>
+                <c:if test="${not logged}">
+                    <a class="nav-link color-header" href="<c:url value='/register' />">rejestracja</a>
+                </c:if>
             </li>
             <li class="nav-item ml-4">
                 <a class="nav-link" href="/about">o aplikacji</a>
