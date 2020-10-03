@@ -55,7 +55,7 @@
                     <td class="col-2">${day[1]}</td>
                     <td class="col-7">${day[2]}</td>
                     <td class="col-2-btns">
-                        <a href="<c:url value="/app/recipe/plan/delete?id=${day[4]}&planId=${planId}" />" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                        <a href="<c:url value="/app/recipe/plan/delete?id=${day[4]}&planId=${planId}&recipeId=${day[3]}" />" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
                         <a href="<c:url value="/app/recipe/details?id=${day[3]}" />" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                     </td>
                 </tr>

@@ -2,20 +2,14 @@ package pl.coderslab.web;
 
 import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipePlanDao;
-import pl.coderslab.model.Admins;
-import pl.coderslab.model.Plan;
-import pl.coderslab.model.RecipePlanObj;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 @WebServlet(name = "ServletPlansDetails",urlPatterns = {"/app/plan/details"})
 public class ServletPlansDetails extends HttpServlet {
@@ -35,6 +29,8 @@ public class ServletPlansDetails extends HttpServlet {
         List<String[]> detailedPlan = recipePlanDao.getRecipePlanByPLanId(planId);
         request.setAttribute("detailedPlan", detailedPlan);
         request.setAttribute("planId", planId);
+
+        getServletContext().getRequestDispatcher("/WEB-INF/planDetails.jsp").forward(request, response);
 
 //        List <RecipePlanObj> list = RecipePlanDao.getRecipePlanByPLanId(planId);
 //
@@ -74,8 +70,8 @@ public class ServletPlansDetails extends HttpServlet {
 //            request.setAttribute("pt", pt);
 //            request.setAttribute("sob", sob);
 //            request.setAttribute("ndz", ndz);
-
-        getServletContext().getRequestDispatcher("/WEB-INF/planDetails.jsp").forward(request, response);
+//
+//        getServletContext().getRequestDispatcher("/WEB-INF/planDetails.jsp").forward(request, response);
     }
 }
 

@@ -1,7 +1,9 @@
 package pl.coderslab.web;
 
+import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipeDao;
 import pl.coderslab.dao.RecipePlanDao;
+import pl.coderslab.model.Plan;
 import pl.coderslab.model.Recipe;
 
 import javax.servlet.ServletException;
@@ -27,6 +29,15 @@ public class DeleteRecipeFromPlanServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String recipePlanIdValue = request.getParameter("id");
         String planIdValue = request.getParameter("planId");
+        String recipeIdValue = request.getParameter("recipeId");
+
+        RecipeDao recipeDao = new RecipeDao();
+        Recipe recipe = recipeDao.readRecipe(Integer.parseInt(recipeIdValue));
+        request.setAttribute("recipeName", recipe.getName());
+
+        PlanDao planDao = new PlanDao();
+        Plan plan = planDao.readPlan(Integer.parseInt(planIdValue));
+        request.setAttribute("planName", plan.getName());
 
         request.setAttribute("recipePlanId",recipePlanIdValue);
         request.setAttribute("planId",planIdValue);
