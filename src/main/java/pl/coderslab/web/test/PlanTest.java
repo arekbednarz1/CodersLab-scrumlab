@@ -58,5 +58,12 @@ public class PlanTest extends HttpServlet {
 //                .append("\nDescription: ").append(lastPlan.getDescription())
 //                .append("\nCreated: ").append(String.valueOf(lastPlan.getCreated()))
 //                .append("\nAdminID: ").append(String.valueOf(lastPlan.getId()));
+
+//        PlanDao planDao = new PlanDao();
+//        plan.setName("super plan");
+//        plan.setDescription("Pojęcie kuchnia wegetariańska określa pożywienie, które ani nie zawiera mięsa, ani nie zostało przygotowane na bazie pochodzącej z mięsa (np. na rosole drobiowym). Laktoowowegetarianie (najczęściej spotykany typ wegetarian w zachodnim świecie) spożywają nabiał, laktowegetarianie wykluczają jaja, ale nie inne produkty nabiałowe.");
+//        plan.setAdminId(4);
+//        planDao.createPlan(plan);
+
     }
 }

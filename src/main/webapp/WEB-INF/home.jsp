@@ -1,6 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <%@include file="views/header.jsp"%>
 
 <section class="padding-large bg-light">

@@ -1,8 +1,8 @@
 package pl.coderslab.model;
 
 public class DayName {
-    private int id;
-    private String name;
+    public int id;
+    public String name;
     private int display_order;
 
     public DayName(){}

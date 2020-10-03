@@ -20,9 +20,7 @@ public class RecipeDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
-        Admins admin = (Admins) session.getAttribute("admin");
-        request.setAttribute("username", admin.getFirstName());
+
         RecipeDao recipeDao = new RecipeDao();
         String idValue = request.getParameter("id");
         int id = Integer.parseInt(idValue);

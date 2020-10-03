@@ -47,6 +47,7 @@ public class AddRecipeServlet extends HttpServlet {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
+
         getServletContext().getRequestDispatcher("/WEB-INF/addRecipe.jsp").forward(request, response);
     }
 }

@@ -23,14 +23,8 @@ public class DashboardServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //TEST
-//        AdminsDao adminsDao = new AdminsDao();
-//        Admins admin = adminsDao.readAdmin(1);
-
         HttpSession session = request.getSession();
-
         Admins admin = (Admins) session.getAttribute("admin");
-        request.setAttribute("username", admin.getFirstName());
 
         // get number of plans user created and display it on dashbord
         PlanDao planDao = new PlanDao();
@@ -49,6 +43,9 @@ public class DashboardServlet extends HttpServlet {
         // get detailed information about last plan user created and display it on dashbord
         List<String[]> lastDetailedPlan = planDao.getLastPlanDetailed(admin.getId());
         request.setAttribute("lastDetailedPlan", lastDetailedPlan);
+
+        String recipePlanCreated = request.getParameter("recipePlanCreated");
+        if(recipePlanCreated != null) request.setAttribute("recipePlanCreated", "Plan przepisów został zaktualizowany!");
 
         getServletContext().getRequestDispatcher("/WEB-INF/dashboard.jsp").forward(request, response);
     }

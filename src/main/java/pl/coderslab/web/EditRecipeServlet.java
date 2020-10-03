@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -66,6 +67,7 @@ public class EditRecipeServlet extends HttpServlet {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
+
         RecipeDao recipeDao = new RecipeDao();
         int id = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("showDetails", recipeDao.readRecipe(id));

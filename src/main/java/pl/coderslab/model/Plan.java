@@ -10,19 +10,34 @@ import java.time.LocalDateTime;
 
 public class Plan {
 
-    private int id;
-    private String name;
+    public int id;
+    public String name;
     private String description;
-    private Date created = Date.valueOf(LocalDate.now());
+    private String created;
     private int adminId;
+    private Admins admin;
 
     public Plan() {
     }
 
-    public Plan(String name, String description, Date created) {
+    public Plan(String name, String description, String created) {
         this.name = name;
         this.description = description;
         this.created = created;
+    }
+
+    public Plan(String name, String description, Admins admin) {
+        this.name = name;
+        this.description = description;
+        this.admin = admin;
+    }
+
+    public Admins getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admins admin) {
+        this.admin = admin;
     }
 
     @Override
@@ -54,11 +69,11 @@ public class Plan {
         this.description = description;
     }
 
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 
