@@ -1,5 +1,5 @@
-<%@include file="views/deashboardHeader.jsp"%>
-<%@include file="views/dashboardSideMenu.jsp"%>
+<%@include file="fragments/deashboardHeader.jsp"%>
+<%@include file="fragments/dashboardSideMenu.jsp"%>
 
 <div class="m-4 p-3 width-medium">
     <div class="dashboard-content border-dashed p-3 m-4 view-height">
@@ -41,4 +41,4 @@
     </div>
 </div>
 
-<%@include file="views/dashboardFooter.jsp"%>
+<%@include file="fragments/dashboardFooter.jsp"%>

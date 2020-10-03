@@ -1,8 +1,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%@include file="views/deashboardHeader.jsp"%>
-<%@include file="views/dashboardSideMenu.jsp"%>
+<%@include file="fragments/deashboardHeader.jsp"%>
+<%@include file="fragments/dashboardSideMenu.jsp"%>
 
 <div class="m-4 p-4 width-medium">
     <div class="dashboard-header m-4">
@@ -80,4 +80,4 @@
     </c:if>
 </div>
 
-<%@include file="views/dashboardFooter.jsp"%>
+<%@include file="fragments/dashboardFooter.jsp"%>

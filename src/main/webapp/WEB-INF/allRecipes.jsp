@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="views/header.jsp" %>
+<%@include file="fragments/header.jsp" %>
 
 <section>
     <div class="row padding-small">
@@ -84,4 +84,4 @@
 
 
 
-<%@include file="views/footer.jsp" %>
+<%@include file="fragments/footer.jsp" %>

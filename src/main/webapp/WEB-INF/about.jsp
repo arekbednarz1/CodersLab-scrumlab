@@ -1,4 +1,4 @@
-<%@include file="views/header.jsp"%>
+<%@include file="fragments/header.jsp"%>
 
 <section class="padding-medium story bg-light" id="about">
     <div class="container d-flex justify-content-center align-items-center">
@@ -20,4 +20,4 @@
     </div>
 </section>
 
-<%@ include file="views/footer.jsp"%>
+<%@ include file="fragments/footer.jsp"%>
