@@ -20,6 +20,7 @@ public class AdminsDao {
     private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name=?, last_name=?, email=?, password=? WHERE id=?";
     private static final String DELETE_ADMIN_QUERY = "DELETE FROM admins WHERE id=?";
     private static final String READ_ADMIN_MAIL_QUERY = "SELECT * FROM admins WHERE email=?";
+    private static final String UPDATE_ADMIN_PASSWORD_QUERY = "UPDATE admins SET password =? WHERE id=?";
 
     public String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
@@ -123,10 +124,20 @@ public List<Admins> readAllAdmins(){
             statement.setString(1, admins.getFirstName());
             statement.setString(2, admins.getLastName());
             statement.setString(3, admins.getEmail());
-            statement.setString(4, this.hashPassword(admins.getPassword()));
+            statement.setString(4, admins.getPassword());
             statement.executeUpdate();
         }
         catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    public void updateAdminPassword(Admins admins){
+        try(Connection conn = DbUtil.getConnection();
+        PreparedStatement statement = conn.prepareStatement(UPDATE_ADMIN_PASSWORD_QUERY)){
+            statement.setInt(2, admins.getId());
+            statement.setString(1, hashPassword(admins.getPassword()));
+            statement.executeUpdate();
+        }catch (SQLException e){
             e.printStackTrace();
         }
     }
